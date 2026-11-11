@@ -21,6 +21,7 @@ freely, subject to the following restrictions:
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using DotRecast.Core;
 
 namespace DotRecast.Detour.Crowd
 {
@@ -50,7 +51,7 @@ namespace DotRecast.Detour.Crowd
             _invCellSize = 1.0f / cellSize;
             _pool = new Item[256];
             _buckets = new int[NextPow2(_pool.Length)];
-            Array.Fill(_buckets, -1);
+            RcArrays.Fill(_buckets, -1);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -90,7 +91,7 @@ namespace DotRecast.Detour.Crowd
 
         public void Clear()
         {
-            Array.Fill(_buckets, -1);
+            RcArrays.Fill(_buckets, -1);
             _poolHead = 0;
         }
 
@@ -100,7 +101,7 @@ namespace DotRecast.Detour.Crowd
         {
             Array.Resize(ref _pool, _pool.Length * 2);
             _buckets = new int[NextPow2(_pool.Length)];
-            Array.Fill(_buckets, -1);
+            RcArrays.Fill(_buckets, -1);
             for (int i = 0; i < _poolHead; ++i)
             {
                 ref Item item = ref _pool[i];

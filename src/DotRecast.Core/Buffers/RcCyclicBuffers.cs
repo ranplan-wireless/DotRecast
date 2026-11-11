@@ -19,7 +19,7 @@ namespace DotRecast.Core.Buffers
 
                 result = Vector.Dot(vecSum, Vector<long>.One);
                 var remainder = source.Length % Vector<long>.Count;
-                buffer = buffer[^remainder..];
+                buffer = buffer.Slice(buffer.Length - remainder);
             }
             
             foreach (var val in buffer)
@@ -53,7 +53,7 @@ namespace DotRecast.Core.Buffers
                     result = Math.Min(result, vecMin[i]);
                 
                 var remainder = source.Length % Vector<long>.Count;
-                buffer = buffer[^remainder..];
+                buffer = buffer.Slice(buffer.Length - remainder);
             }
             
             foreach (var val in buffer)
@@ -79,7 +79,7 @@ namespace DotRecast.Core.Buffers
                     result = Math.Max(result, vecMax[i]);
                 
                 var remainder = source.Length % Vector<long>.Count;
-                buffer = buffer[^remainder..];
+                buffer = buffer.Slice(buffer.Length - remainder);
             }
             
             foreach (var val in buffer)

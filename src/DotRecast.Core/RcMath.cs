@@ -18,6 +18,7 @@ freely, subject to the following restrictions:
 3. This notice may not be removed or altered from any source distribution.
 */
 
+using System;
 using System.Runtime.CompilerServices;
 
 namespace DotRecast.Core
@@ -29,11 +30,60 @@ namespace DotRecast.Core
         {
             return f * f;
         }
-        
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static float Lerp(float value1, float value2, float amount)
         {
             return (value1 * (1.0f - amount)) + (value2 * amount);
+        }
+
+        /// <summary>
+        /// Same semantics as System.Math.Clamp(float, float, float), which is not available on netstandard2.0.
+        /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static float Clamp(float value, float min, float max)
+        {
+            if (max < min)
+                throw new ArgumentException("max < min");
+
+            if (value < min)
+                return min;
+
+            if (value > max)
+                return max;
+
+            return value;
+        }
+
+        /// <summary>
+        /// Same semantics as System.Math.Clamp(int, int, int), which is not available on netstandard2.0.
+        /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static int Clamp(int value, int min, int max)
+        {
+            if (max < min)
+                throw new ArgumentException("max < min");
+
+            if (value < min)
+                return min;
+
+            if (value > max)
+                return max;
+
+            return value;
+        }
+
+        /// <summary>
+        /// float.IsFinite is not available on netstandard2.0.
+        /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool IsFinite(float value)
+        {
+#if NETSTANDARD2_0
+            return !float.IsNaN(value) && !float.IsInfinity(value);
+#else
+            return float.IsFinite(value);
+#endif
         }
     }
 }

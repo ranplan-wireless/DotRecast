@@ -253,7 +253,7 @@ namespace DotRecast.Detour.Crowd
             Span<long> res = stackalloc long[MAX_RES];
             int nres = 0;
             
-            navquery.InitSlicedFindPath(m_path[0], m_path[^1], m_pos, m_target, filter, 0);
+            navquery.InitSlicedFindPath(m_path[0], m_path[m_npath - 1], m_pos, m_target, filter, 0);
             navquery.UpdateSlicedFindPath(maxIterations, out var _);
             var status = navquery.FinalizeSlicedFindPathPartial(m_path, m_npath, res, out nres, MAX_RES);
 
@@ -375,7 +375,7 @@ namespace DotRecast.Detour.Crowd
             const int MAX_VISITED = 16;
             Span<long> visited = stackalloc long[MAX_VISITED];
             int nvisited = 0;
-            var status = navquery.MoveAlongSurface(m_path[^1], m_target, npos, filter, out var result, visited, out nvisited, MAX_VISITED);
+            var status = navquery.MoveAlongSurface(m_path[m_npath - 1], m_target, npos, filter, out var result, visited, out nvisited, MAX_VISITED);
             if (status.Succeeded())
             {
                 m_npath = DtPathUtils.MergeCorridorEndMoved(m_path, m_npath, m_maxPath, visited, nvisited);

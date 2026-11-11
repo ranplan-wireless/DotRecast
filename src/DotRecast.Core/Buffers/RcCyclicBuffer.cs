@@ -198,7 +198,7 @@ namespace DotRecast.Core.Buffers
         {
             var span1 = ArrayOne();
             span1.CopyTo(destination);
-            ArrayTwo().CopyTo(destination[span1.Length..]);
+            ArrayTwo().CopyTo(destination.Slice(span1.Length));
         }
 
         private void ThrowIfEmpty(string message = "Cannot access an empty buffer.")

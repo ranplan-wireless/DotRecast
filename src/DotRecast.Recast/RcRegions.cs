@@ -295,7 +295,7 @@ namespace DotRecast.Recast
 
             while (stack.Count > 0)
             {
-                RcLevelStackEntry back = stack[^1];
+                RcLevelStackEntry back = stack[stack.Count - 1];
                 int cx = back.x;
                 int cy = back.y;
                 int ci = back.index;
@@ -958,7 +958,7 @@ namespace DotRecast.Recast
                 while (stack.Count > 0)
                 {
                     // Pop
-                    int ri = stack[^1];
+                    int ri = stack[stack.Count - 1];
                     stack.RemoveAt(stack.Count - 1);
 
                     RcRegion creg = regions[ri];
@@ -1520,7 +1520,7 @@ namespace DotRecast.Recast
                 }
                 else
                 {
-                    Array.Fill(prev, 0, 0, (id) - (0));
+                    RcArrays.Fill(prev, 0, 0, (id) - (0));
                 }
 
                 int rid = 1;
@@ -1827,7 +1827,7 @@ namespace DotRecast.Recast
                 }
                 else
                 {
-                    Array.Fill(prev, 0, 0, (id) - (0));
+                    RcArrays.Fill(prev, 0, 0, (id) - (0));
                 }
 
                 int rid = 1;
