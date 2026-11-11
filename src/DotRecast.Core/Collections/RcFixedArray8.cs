@@ -31,13 +31,13 @@ namespace DotRecast.Core.Collections
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal readonly Span<T> AsSpanUnsafe()
         {
-            return MemoryMarshal.CreateSpan(ref Unsafe.AsRef(in _v0000), Size);
+            return RcSpan.CreateSpan(ref Unsafe.AsRef(in _v0000), Size);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public readonly ReadOnlySpan<T> AsReadOnlySpan()
         {
-            return MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in _v0000), Size);
+            return RcSpan.CreateReadOnlySpan(ref Unsafe.AsRef(in _v0000), Size);
         }
     }
 }

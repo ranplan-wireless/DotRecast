@@ -32,6 +32,20 @@ namespace DotRecast.Core
             return CopyOf(source, 0, (int)length);
         }
 
+        // Array.Fill is not available on netstandard2.0.
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void Fill<T>(T[] array, T value)
+        {
+            array.AsSpan().Fill(value);
+        }
+
+        // Array.Fill is not available on netstandard2.0.
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void Fill<T>(T[] array, T value, int startIndex, int count)
+        {
+            array.AsSpan(startIndex, count).Fill(value);
+        }
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static T[][] Create2D<T>(int len1, int len2)
         {

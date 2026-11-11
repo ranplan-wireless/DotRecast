@@ -241,7 +241,7 @@ namespace DotRecast.Detour.Crowd
                 vab = RcVec3f.Subtract(vab, cir.vel);
 
                 // Side
-                side += Math.Clamp(Math.Min(cir.dp.Dot2D(vab) * 0.5f + 0.5f, cir.np.Dot2D(vab) * 2), 0.0f, 1.0f);
+                side += RcMath.Clamp(Math.Min(cir.dp.Dot2D(vab) * 0.5f + 0.5f, cir.np.Dot2D(vab) * 2), 0.0f, 1.0f);
                 nside++;
 
                 if (!SweepCircleCircle(pos, rad, vab, cir.p, cir.rad, out var htmin, out var htmax))
@@ -409,8 +409,8 @@ namespace DotRecast.Detour.Crowd
             int nrings = m_params.adaptiveRings;
             int depth = m_params.adaptiveDepth;
 
-            int nd = Math.Clamp(ndivs, 1, DT_MAX_PATTERN_DIVS);
-            int nr = Math.Clamp(nrings, 1, DT_MAX_PATTERN_RINGS);
+            int nd = RcMath.Clamp(ndivs, 1, DT_MAX_PATTERN_DIVS);
+            int nr = RcMath.Clamp(nrings, 1, DT_MAX_PATTERN_RINGS);
             float da = (1.0f / nd) * DT_PI * 2;
             float ca = MathF.Cos(da);
             float sa = MathF.Sin(da);

@@ -1,8 +1,13 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.1;net8.0;net9.0;net10.0</TargetFrameworks>
-    <PackageId>DotRecast.Core</PackageId>
+    <TargetFrameworks>netstandard2.0;netstandard2.1;net8.0;net9.0;net10.0</TargetFrameworks>
+    <PackageId>Ranplan.DotRecast.Core</PackageId>
+    <!-- C# 11+ ref-safety analysis rejects the Span-over-struct-field pattern when the
+         ref-safety attributes come from downlevel assemblies; the IL is identical. -->
+    <LangVersion Condition="'$(TargetFramework)' == 'netstandard2.0' or '$(TargetFramework)' == 'netstandard2.1'">10</LangVersion>
+    <LangVersion Condition="'$(TargetFramework)' != 'netstandard2.0' and '$(TargetFramework)' != 'netstandard2.1'">latest</LangVersion>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <Authors>ikpil</Authors>
     <Description>DotRecast - a port of Recast Detour, Industry-standard navigation mesh toolset for .NET, C#, Unity3D, games, servers</Description>
@@ -20,6 +25,13 @@
 
   <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.1'">
     <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.1.2" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+    <PackageReference Include="System.Memory" Version="4.5.5" />
+    <PackageReference Include="System.Buffers" Version="4.5.1" />
+    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.1.2" />
+    <Compile Include="$(MSBuildThisFileDirectory)..\Shared\NetStandard20Polyfills.cs" Link="Compatibility\NetStandard20Polyfills.cs" />
   </ItemGroup>
 
 
